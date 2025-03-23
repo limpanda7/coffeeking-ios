@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		20D2374B2D906173004DC744 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20D2374A2D906173004DC744 /* GoogleService-Info.plist */; };
 		7699B88040F8A987B510C191 /* libPods-CoQuiz-CoQuizTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-CoQuiz-CoQuizTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		99732F102B090C0B00DA7512 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99732F122B090C0B00DA7512 /* InfoPlist.strings */; };
@@ -50,7 +51,6 @@
 		99732F5A2B0BA03500DA7512 /* sound_quiz_result_yellow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 99732F4D2B0BA03500DA7512 /* sound_quiz_result_yellow.mp3 */; };
 		99732F5B2B0BA03500DA7512 /* sound_quiz_time.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 99732F4E2B0BA03500DA7512 /* sound_quiz_time.mp3 */; };
 		9981E4872B5BC59E00542149 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9981E4862B5BC59E00542149 /* StoreKit.framework */; };
-		99AD3A2729E863E800436D05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99AD3A2629E863E800436D05 /* GoogleService-Info.plist */; };
 		99C4D3632B6E42B200050BCD /* sound_4_5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 99C4D3622B6E42B200050BCD /* sound_4_5.mp3 */; };
 		99E53DC72B614DAF0063B370 /* sound_rank_move.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 99E53DBF2B614DAF0063B370 /* sound_rank_move.mp3 */; };
 		99E53DC82B614DAF0063B370 /* sound_swal_confirm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 99E53DC02B614DAF0063B370 /* sound_swal_confirm.mp3 */; };
@@ -83,6 +83,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CoQuiz/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CoQuiz/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-CoQuiz-CoQuizTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoQuiz-CoQuizTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		20D2374A2D906173004DC744 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3B4392A12AC88292D35C810B /* Pods-CoQuiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoQuiz.debug.xcconfig"; path = "Target Support Files/Pods-CoQuiz/Pods-CoQuiz.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-CoQuiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoQuiz.release.xcconfig"; path = "Target Support Files/Pods-CoQuiz/Pods-CoQuiz.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-CoQuiz-CoQuizTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoQuiz-CoQuizTests.debug.xcconfig"; path = "Target Support Files/Pods-CoQuiz-CoQuizTests/Pods-CoQuiz-CoQuizTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,7 +128,6 @@
 		99732F4E2B0BA03500DA7512 /* sound_quiz_time.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_quiz_time.mp3; sourceTree = "<group>"; };
 		9981E4862B5BC59E00542149 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		99AD3A2529E8602700436D05 /* CoQuiz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = CoQuiz.entitlements; path = CoQuiz/CoQuiz.entitlements; sourceTree = "<group>"; };
-		99AD3A2629E863E800436D05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/nam-eunbi/WebstormProjects/coquiz/ios/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
 		99C4D3622B6E42B200050BCD /* sound_4_5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_4_5.mp3; sourceTree = "<group>"; };
 		99E53DBF2B614DAF0063B370 /* sound_rank_move.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_rank_move.mp3; sourceTree = "<group>"; };
 		99E53DC02B614DAF0063B370 /* sound_swal_confirm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_swal_confirm.mp3; sourceTree = "<group>"; };
@@ -257,13 +257,13 @@
 				99732F472B0BA03400DA7512 /* sound_quiz_x2.mp3 */,
 				99732F122B090C0B00DA7512 /* InfoPlist.strings */,
 				99732F142B09122C00DA7512 /* main.jsbundle */,
-				99AD3A2629E863E800436D05 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* CoQuiz */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* CoQuizTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				20D2374A2D906173004DC744 /* GoogleService-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -389,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99732F562B0BA03500DA7512 /* sound_open_box.mp3 in Resources */,
+				20D2374B2D906173004DC744 /* GoogleService-Info.plist in Resources */,
 				99732F3D2B0BA02A00DA7512 /* sound_0_0.mp3 in Resources */,
 				99E53DCE2B614DAF0063B370 /* sound_home_shop_move.mp3 in Resources */,
 				99E53DCC2B614DAF0063B370 /* sound_nft_move.mp3 in Resources */,
@@ -419,7 +420,6 @@
 				99732F2B2B0B9FE100DA7512 /* bgm_game_8.mp3 in Resources */,
 				99732F412B0BA02A00DA7512 /* sound_2.mp3 in Resources */,
 				99732F5A2B0BA03500DA7512 /* sound_quiz_result_yellow.mp3 in Resources */,
-				99AD3A2729E863E800436D05 /* GoogleService-Info.plist in Resources */,
 				99E53DC72B614DAF0063B370 /* sound_rank_move.mp3 in Resources */,
 				99732F532B0BA03500DA7512 /* sound_open_box_4.mp3 in Resources */,
 				99E53DCA2B614DAF0063B370 /* sound_key_get.mp3 in Resources */,
@@ -719,7 +719,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CoQuiz/CoQuiz.entitlements;
 				CURRENT_PROJECT_VERSION = 28;
-				DEVELOPMENT_TEAM = TJCRDLDHS3;
+				DEVELOPMENT_TEAM = 3PTHA9QJL6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CoQuiz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -731,7 +731,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.coquiz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coffeekingapp;
 				PRODUCT_NAME = CoQuiz;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -747,7 +747,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CoQuiz/CoQuiz.entitlements;
 				CURRENT_PROJECT_VERSION = 28;
-				DEVELOPMENT_TEAM = TJCRDLDHS3;
+				DEVELOPMENT_TEAM = 3PTHA9QJL6;
 				INFOPLIST_FILE = CoQuiz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -758,7 +758,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.coquiz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coffeekingapp;
 				PRODUCT_NAME = CoQuiz;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
