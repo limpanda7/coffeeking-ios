@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1053063364183",
+    "project_id": "coquiz-19d0e",
+    "storage_bucket": "coquiz-19d0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053063364183:android:0db4516ffd5c3a49b32d12",
+        "android_client_info": {
+          "package_name": "com.coquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053063364183-8mgg5qbhuq7tn9hmmm1d263rtgqbgldn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coquiz",
+            "certificate_hash": "1bd80a3666cebdb681de125ec4549ebedc48b6a4"
+          }
+        },
+        {
+          "client_id": "1053063364183-thd4fk3h9dg9af0skgjjerp2hp2mlqb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt3ywtSdNTS1U7wvMKClF6zb_ct7Rd8E0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053063364183-thd4fk3h9dg9af0skgjjerp2hp2mlqb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

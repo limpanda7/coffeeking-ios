@@ -1,0 +1,11 @@
+{
+  "name": "CoQuiz",
+  "displayName": "CoQuiz",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-8020861757941184~1384387754",
+    "ios_app_id": "ca-app-pub-8020861757941184~7801606381",
+    "optimize_initialization": true,
+    "optimize_ad_loading": true,
+    "user_tracking_usage_description": "This identifier will be used to deliver personalized ads to you."
+  }
+}
