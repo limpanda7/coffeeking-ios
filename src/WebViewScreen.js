@@ -91,6 +91,7 @@ const WebViewScreen = () => {
   const [token, setToken] = useState(null);
   const [purchaseSuccess, setPurchaseSuccess] = useState(null);
   const [purchaseFail, setPurchaseFail] = useState(null);
+  const [deeplink, setDeeplink] = useState(null);
   const [bgmName, setBgmName] = useState('bgm_normal');
   const [bgmStatus, setBgmStatus] = useState('stop');
   const [setting, setSetting] = useState({
@@ -101,6 +102,8 @@ const WebViewScreen = () => {
   });
 
   const {open, isOpen, address, isConnected} = useWeb3Modal();
+
+  console.log({deeplink});
 
   // Admob
   const {
@@ -165,25 +168,28 @@ const WebViewScreen = () => {
       });
     }, 5000);
 
-    if (Platform.OS === 'android') {
-      AppState.addEventListener('change', nextAppState => {
-        if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-          setBgmStatus('resume');
-        } else {
-          setBgmStatus('stop');
-        }
-        appState.current = nextAppState;
-      });
-    }
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+        setBgmStatus('resume');
+      } else {
+        setBgmStatus('stop');
+      }
+      appState.current = nextAppState;
+    });
 
     // 백키 종료 확인
-    BackHandler.addEventListener("hardwareBackPress", () => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
         postMessageToWebView('backKeyPress', 'dummy');
         return true;
       }
     );
 
     init();
+
+    return () => {
+      subscription.remove();
+      backHandler.remove();
+    };
   }, []);
 
   // 최초 실행 시 or 세팅값 바뀔 시
@@ -289,6 +295,9 @@ const WebViewScreen = () => {
     await getUid();
     await initSetting();
     await initProducts();
+
+    const removeListener = setupDeepLinkListener();
+    return removeListener;
   }
 
   const requestPermission = () => {
@@ -414,6 +423,36 @@ const WebViewScreen = () => {
     }
   };
 
+  const handleDeepLink = (url) => {
+    if (!url) return;
+    const link = url.split('://')[1];
+    setDeeplink(link);
+  };
+
+  const setupDeepLinkListener = () => {
+    // 1. 딥링크를 통해 앱이 처음 열릴 때
+    Linking.getInitialURL().then((url) => handleDeepLink(url));
+
+    // 2. 푸시를 통해 앱이 처음 열릴 때
+    messaging().getInitialNotification().then(remoteMessage => {
+      handleDeepLink(remoteMessage?.data?.deeplink);
+    });
+
+    // 3. 푸시를 통해 앱이 백그라운드에서 열릴 때
+    const unsubscribeOnNotificationOpenedApp = messaging().onNotificationOpenedApp(remoteMessage => {
+      handleDeepLink(remoteMessage?.data?.deeplink);
+    });
+
+    // 4. 앱이 백그라운드에 있는데 딥링크 클릭할 때
+    const unsubscribeLinkingListener = Linking.addEventListener('url', ({ url }) => handleDeepLink(url));
+
+    // 언마운트 시 이벤트 리스너 해제
+    return () => {
+      unsubscribeOnNotificationOpenedApp();
+      unsubscribeLinkingListener();
+    };
+  };
+
   // 웹뷰로부터 메시지 수신
   const onMessage = async(e) => {
     console.log('웹뷰로부터 받은 메시지: ' + e.nativeEvent.data);
@@ -474,6 +513,11 @@ const WebViewScreen = () => {
         saveSetting(newSetting);
         postMessageToWebView('saveSettingSuccess', newSetting);
         setSetting(newSetting);
+        break;
+
+      case 'getDeeplink':
+        postMessageToWebView('getDeeplinkSuccess', deeplink);
+        setDeeplink(null);
         break;
 
       case 'bgmStart':
