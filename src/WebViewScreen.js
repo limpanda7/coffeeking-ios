@@ -8,6 +8,7 @@ import {
   Image,
   Linking,
   PermissionsAndroid,
+  NativeModules,
 } from 'react-native';
 import WebView from 'react-native-webview';
 import DeviceInfo from 'react-native-device-info';
@@ -76,12 +77,15 @@ const providerMetadata = {
   icons: ['https://www.coquiz.space/img/beta/conut.png'],
 };
 
+const { RNRestart } = NativeModules;
+
 const WebViewScreen = () => {
   const appState = useRef(AppState.currentState);
   const webViewRef = useRef(null);
   const mbIdRef = useRef('');
   const adTypeRef = useRef('');
   const isOpenRef = useRef(false);
+  const lastBackgroundTime = useRef(null);
 
   const [webViewUrl, setWebViewUrl] = useState('https://www.coquiz.space/0_v1/index.php');
   const [isReady, setIsReady] = useState(false);
@@ -171,8 +175,17 @@ const WebViewScreen = () => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
         setBgmStatus('resume');
+
+        // 백그라운드 30분 이상 경과 시 새로고침
+        const currentTime = Date.now();
+        const elapsedTime = currentTime - (lastBackgroundTime.current || 0);
+        if (elapsedTime >= 30 * 60 * 1000 && webViewRef.current) {
+          RNRestart.Restart();
+        }
+
       } else {
         setBgmStatus('stop');
+        lastBackgroundTime.current = Date.now();
       }
       appState.current = nextAppState;
     });
@@ -423,28 +436,38 @@ const WebViewScreen = () => {
     }
   };
 
-  const handleDeepLink = (url) => {
+  const updateDeeplink = (url) => {
     if (!url) return;
     const link = url.split('://')[1];
     setDeeplink(link);
   };
 
+  const sendDeeplink = (url) => {
+    const link = url ? url.split('://')[1] : deeplink;
+    postMessageToWebView('getDeeplinkSuccess', link);
+    setDeeplink(null);
+  }
+
   const setupDeepLinkListener = () => {
     // 1. 딥링크를 통해 앱이 처음 열릴 때
-    Linking.getInitialURL().then((url) => handleDeepLink(url));
+    // 앱에서 getDeeplink를 하므로 updateDeeplink만 하면 됨
+    Linking.getInitialURL().then((url) => updateDeeplink(url));
 
     // 2. 푸시를 통해 앱이 처음 열릴 때
+    // 앱에서 getDeeplink를 하므로 updateDeeplink만 하면 됨
     messaging().getInitialNotification().then(remoteMessage => {
-      handleDeepLink(remoteMessage?.data?.deeplink);
+      updateDeeplink(remoteMessage?.data?.deeplink);
     });
 
     // 3. 푸시를 통해 앱이 백그라운드에서 열릴 때
+    // 앱에서 getDeeplink를 하지 않으므로 직접 sendDeeplink
     const unsubscribeOnNotificationOpenedApp = messaging().onNotificationOpenedApp(remoteMessage => {
-      handleDeepLink(remoteMessage?.data?.deeplink);
+      sendDeeplink(remoteMessage?.data?.deeplink);
     });
 
     // 4. 앱이 백그라운드에 있는데 딥링크 클릭할 때
-    const unsubscribeLinkingListener = Linking.addEventListener('url', ({ url }) => handleDeepLink(url));
+    // 앱에서 getDeeplink를 하지 않으므로 직접 sendDeeplink
+    const unsubscribeLinkingListener = Linking.addEventListener('url', ({ url }) => sendDeeplink(url));
 
     // 언마운트 시 이벤트 리스너 해제
     return () => {
@@ -516,8 +539,7 @@ const WebViewScreen = () => {
         break;
 
       case 'getDeeplink':
-        postMessageToWebView('getDeeplinkSuccess', deeplink);
-        setDeeplink(null);
+        sendDeeplink();
         break;
 
       case 'bgmStart':
