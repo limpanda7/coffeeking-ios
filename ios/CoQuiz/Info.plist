@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>28</string>
 	<key>CodePushDeploymentKey</key>
-	<string>S8Rm_3o1H8bgEL9n2TZTfwd-3IRpxY0yLIpLJ</string>
+	<string>7nzmmyNXX3n7lYo6ebRU7AZ8oJ6jJfDSAMDG6F</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -70,7 +70,7 @@
         <dict>
           <key>CFBundleURLSchemes</key>
           <array>
-            <string>coquiz</string>
+            <string>coffeekingapp</string>
           </array>
         </dict>
       </array>

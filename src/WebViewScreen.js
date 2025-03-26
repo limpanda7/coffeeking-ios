@@ -14,7 +14,7 @@ import WebView from 'react-native-webview';
 import DeviceInfo from 'react-native-device-info';
 import analytics from '@react-native-firebase/analytics';
 import SoundPlayer from 'react-native-sound-player';
-import mobileAds, {useRewardedAd, useInterstitialAd} from 'react-native-google-mobile-ads';
+import mobileAds, {useRewardedAd, useInterstitialAd, TestIds} from 'react-native-google-mobile-ads';
 import {
   clearTransactionIOS,
   finishTransaction,
@@ -67,8 +67,12 @@ const saveSetting = async(obj) => {
   await AsyncStorage.setItem('setting', str);
 }
 
-const rewardedId = Platform.OS === 'android' ? "ca-app-pub-8020861757941184/8745214789" : "ca-app-pub-8020861757941184/2578164204";
-const fullscreenId = Platform.OS === 'android' ? 'ca-app-pub-8020861757941184/2019946061' : 'ca-app-pub-8020861757941184/2614842436';
+// 커피킹 id로 업데이트 한 상태. 아직 앱 등록 안해서 일단 TestId 사용.
+// const rewardedId = Platform.OS === 'android' ? "ca-app-pub-9404794229278338/1544103880" : "ca-app-pub-9404794229278338/9802428935";
+// const fullscreenId = Platform.OS === 'android' ? 'ca-app-pub-9404794229278338/1736236650' : 'ca-app-pub-9404794229278338/4525490443';
+
+const rewardedId = TestIds.REWARDED;
+const fullscreenId = TestIds.INTERSTITIAL;
 
 const providerMetadata = {
   name: 'COQUIZ',
@@ -87,7 +91,7 @@ const WebViewScreen = () => {
   const isOpenRef = useRef(false);
   const lastBackgroundTime = useRef(null);
 
-  const [webViewUrl, setWebViewUrl] = useState('https://www.coquiz.space/0_v1/index.php');
+  const [webViewUrl, setWebViewUrl] = useState('https://www.coquiz.space/0_test/index.php');
   const [isReady, setIsReady] = useState(false);
   const [isDisconnected, setIsDisconnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +100,7 @@ const WebViewScreen = () => {
   const [purchaseSuccess, setPurchaseSuccess] = useState(null);
   const [purchaseFail, setPurchaseFail] = useState(null);
   const [deeplink, setDeeplink] = useState(null);
-  const [bgmName, setBgmName] = useState('bgm_normal');
+  const [bgmName, setBgmName] = useState(null);
   const [bgmStatus, setBgmStatus] = useState('stop');
   const [setting, setSetting] = useState({
     bgm: '',
@@ -170,7 +174,7 @@ const WebViewScreen = () => {
       NetInfo.addEventListener(state => {
         setIsDisconnected(!state.isConnected);
       });
-    }, 5000);
+    }, 2500);
 
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
@@ -262,12 +266,12 @@ const WebViewScreen = () => {
   useEffect(() => {
     switch (bgmStatus) {
       case 'start':
-        if (setting.bgm === '1') {
+        if (bgmName && setting.bgm === '1') {
           SoundPlayer.playSoundFile(bgmName, 'mp3');
         }
         break;
       case 'resume':
-        if (setting.bgm === '1') {
+        if (bgmName && setting.bgm === '1') {
           SoundPlayer.resume();
         }
         break;
@@ -326,7 +330,7 @@ const WebViewScreen = () => {
   const checkRequiredVersion = async() => {
     try {
       let minimumVersion;
-      const {data} = await axios.get('https://conut-backend-c9308ac7120b.herokuapp.com/minimum-version/coquiz');
+      const {data} = await axios.get('https://conut-backend-c9308ac7120b.herokuapp.com/minimum-version/coffeeking');
       if (Platform.OS === 'android') {
         minimumVersion = data.android;
       } else {
@@ -337,7 +341,7 @@ const WebViewScreen = () => {
       console.log({currentVersion, minimumVersion})
 
       if (compareVersions(currentVersion, minimumVersion) < 0) {
-        setWebViewUrl('https://www.coquiz.space/0_v1/app_update_info.php');
+        setWebViewUrl('http://coffeeking.kr/0_v1/app_update_info.php');
       } else {
         CodePush.sync({
           updateDialog: {
@@ -748,10 +752,6 @@ const WebViewScreen = () => {
       {
         isLoading && <Loading />
       }
-      <Web3Modal
-        projectId='43989f48e771c95cde23f7c8bd830e0b'
-        providerMetadata={providerMetadata}
-      />
     </SafeAreaView>
   );
 }
